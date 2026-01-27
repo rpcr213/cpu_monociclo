@@ -14,6 +14,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity banco_registros is
 Port (
     clk : in std_logic;
+    clk_p : in std_logic;
     rst : in std_logic;
     write : in std_logic;
     wb : in std_logic_vector(7 downto 0);
@@ -31,6 +32,7 @@ architecture Behavioral of banco_registros is
 component registro is
 Port (
     clk : in std_logic;
+    clk_p : in std_logic;
     rst : in std_logic;
     load : in std_logic;
     E : in std_logic_vector(7 downto 0);
@@ -80,6 +82,7 @@ begin
 r1: registro
 port map (
     clk => clk,
+    clk_p => clk_p,
     rst => rst,
     load => lr(0),
     E => wb,
@@ -89,6 +92,7 @@ port map (
 r2: registro
 port map (
     clk => clk,
+    clk_p => clk_p,
     rst => rst,
     load => lr(1),
     E => wb,
@@ -98,6 +102,7 @@ port map (
 r3: registro
 port map (
     clk => clk,
+    clk_p => clk_p,
     rst => rst,
     load => lr(2),
     E => wb,
@@ -107,6 +112,7 @@ port map (
 r4: registro
 port map (
     clk => clk,
+    clk_p => clk_p,
     rst => rst,
     load => lr(3),
     E => wb,

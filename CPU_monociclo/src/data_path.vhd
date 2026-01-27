@@ -5,6 +5,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity data_path is
 Port (
     clk : in std_logic;
+    clk_p : in std_logic;
     rst : in std_logic;
     ctrl : in std_logic_vector(10 downto 0);
     data : out std_logic_vector(4 downto 0);
@@ -19,6 +20,7 @@ architecture Behavioral of data_path is
 component registro is
 Port (
     clk : in std_logic;
+    clk_p : in std_logic;
     rst : in std_logic;
     load : in std_logic;
     E : in std_logic_vector(7 downto 0);
@@ -46,6 +48,7 @@ end component;
 component banco_registros is
 Port (
     clk : in std_logic;
+    clk_p : in std_logic;
     rst : in std_logic;
     write : in std_logic;
     wb : in std_logic_vector(7 downto 0);
@@ -71,7 +74,9 @@ end component;
 component RAM is
 Port (
     we : in std_logic;
+    rst : in std_logic;
     clk : in std_logic;
+    clk_p : in std_logic;
     dir : in std_logic_vector(7 downto 0);
     din : in std_logic_vector(7 downto 0); 
     dout : out std_logic_vector(7 downto 0)
@@ -129,6 +134,7 @@ port map (
 PC : registro
 port map (
     clk => clk,
+    clk_p => clk_p,
     rst => rst,
     load => '1',
     E => salida_mux2a1_5,
@@ -156,6 +162,7 @@ port map (
 banco_regs : banco_registros
 port map (
     clk => clk,
+    clk_p => clk_p,
     rst => rst,
     write => write_banco_regs,
     wb => salida_mux2a1_4,
@@ -199,7 +206,9 @@ port map (
 c_ram : RAM
 port map (
     we => we_ram,
+    rst => rst,
     clk => clk,
+    clk_p => clk_p,
     dir => valor_segundo_registro,
     din => valor_primer_registro,
     dout => salida_ram

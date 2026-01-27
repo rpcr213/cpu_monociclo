@@ -24,6 +24,7 @@ architecture Behavioral of core is
     component data_path is
         Port (
             clk : in std_logic;
+            clk_p : in std_logic;
             rst : in std_logic;
             ctrl : in std_logic_vector(10 downto 0);
             data : out std_logic_vector(4 downto 0);
@@ -77,7 +78,8 @@ begin
     
     ruta_de_datos : data_path
     port map (
-        clk => clk_1hz,
+        clk => clk,
+        clk_p => clk_1hz,
         rst => rst,
         ctrl => a_ctrl,
         data => a_data,

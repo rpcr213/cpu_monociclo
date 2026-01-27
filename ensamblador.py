@@ -34,25 +34,25 @@ def parse_line(line):
         return "11100000", None
 
     if " " not in line:
-        return None, f"Error: instrucción mal formada -> {line}"
+        return None, f"Error: instruccion mal formada -> {line}"
 
     instr, args = line.split(" ", 1)
     instr = instr.lower()
 
     if instr not in OPCODES:
-        return None, f"Error: instrucción desconocida -> {line}"
+        return None, f"Error: instruccion desconocida -> {line}"
 
     opcode = OPCODES[instr]
 
     if instr in ["add", "sub", "and", "or", "xor", "ld", "st", "bne", "beq"]:
         if ", " not in args:
-            return None, f"Error: formato inválido, debe ser 'R0, R1' -> {line}"
+            return None, f"Error: formato invalido' -> {line}"
 
         r0, r1 = args.split(", ")
         b0 = reg_to_bits(r0)
         b1 = reg_to_bits(r1)
         if b0 is None or b1 is None:
-            return None, f"Error: registro inválido -> {line}"
+            return None, f"Error: registro invalido -> {line}"
 
         return opcode + b0 + b1, None
 
@@ -60,44 +60,44 @@ def parse_line(line):
         r0 = args
         b0 = reg_to_bits(r0)
         if b0 is None:
-            return None, f"Error: registro inválido -> {line}"
+            return None, f"Error: registro invalido -> {line}"
         return opcode + b0 + "00", None
 
     elif instr in ["sr", "sl", "addi", "li"]:
         if ", " not in args:
-            return None, f"Error: formato inválido, debe ser 'R0, 1' -> {line}"
+            return None, f"Error: formato invalido' -> {line}"
 
         r0, imm = args.split(", ")
         b0 = reg_to_bits(r0)
         if b0 is None:
-            return None, f"Error: registro inválido -> {line}"
+            return None, f"Error: registro invalido -> {line}"
 
         if not imm.isdigit():
-            return None, f"Error: immediate no decimal -> {line}"
+            return None, f"Error: inmediato no decimal -> {line}"
 
         imm_val = int(imm)
         if not (0 <= imm_val <= 3):
-            return None, f"Error: immediate fuera de rango (0-3) -> {line}"
+            return None, f"Error: inmediato fuera de rango (0-3) -> {line}"
 
         bimm = format(imm_val, "02b")
         return opcode + b0 + bimm, None
 
     elif instr == "j":
         if not args.isdigit():
-            return None, f"Error: immediate no decimal -> {line}"
+            return None, f"Error: inmediato no decimal -> {line}"
 
         imm_val = int(args)
         if not (0 <= imm_val <= 15):
-            return None, f"Error: immediate fuera de rango (0-15) -> {line}"
+            return None, f"Error: inmediato fuera de rango (0-15) -> {line}"
 
         bimm = format(imm_val, "04b")
         return opcode + bimm, None
 
     else:
-        return None, f"Error: instrucción no soportada -> {line}"
+        return None, f"Error: instruccion no soportada -> {line}"
 
 def main():
-    filename = input("Introduce el nombre del archivo: ")
+    filename = input("Nombre del archivo: ")
 
     try:
         with open(filename, "r") as f:

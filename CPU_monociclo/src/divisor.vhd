@@ -5,8 +5,8 @@ USE IEEE.std_logic_unsigned.ALL;
 entity divisor is
     port (
         rst: in STD_LOGIC;
-        clk_entrada: in STD_LOGIC; -- reloj de entrada de la entity superior
-        clk_salida: out STD_LOGIC -- reloj que se utiliza en los process del programa principal
+        clk_entrada: in STD_LOGIC;
+        clk_salida: out STD_LOGIC
     );
 end divisor;
 
