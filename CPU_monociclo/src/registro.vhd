@@ -7,6 +7,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity registro is
 Port (
     clk : in std_logic;
+    clk_p : in std_logic;
     rst : in std_logic;
     load : in std_logic;
     E : in std_logic_vector(7 downto 0);
@@ -18,18 +19,15 @@ architecture Behavioral of registro is
 
 begin
 
-process (clk)
+process (clk, rst)
 begin
-    if (rising_edge(clk)) then
-        if (rst = '1') then
-            S <= (others => '0');
-        elsif (load = '1') then
+    if rst = '1' then
+        S <= (others => '0');
+    elsif rising_edge(clk) then
+        if (load = '1' and clk_p = '1') then
             S <= E;
         end if;
-end if;
-
-
-
+    end if;
 end process;
 
 

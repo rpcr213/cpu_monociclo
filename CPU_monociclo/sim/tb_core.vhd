@@ -14,17 +14,19 @@ Port (
 end component;
 
 component data_path is
-Port (
-    clk : in std_logic;
-    rst : in std_logic;
-    ctrl : in std_logic_vector(10 downto 0);
-    data : out std_logic_vector(4 downto 0);
-    leds : out std_logic_vector(15 downto 0);
-    numero_instruccion : out std_logic_vector(7 downto 0)
-);
+        Port (
+            clk : in std_logic;
+            clk_p : in std_logic;
+            rst : in std_logic;
+            ctrl : in std_logic_vector(10 downto 0);
+            data : out std_logic_vector(4 downto 0);
+            leds : out std_logic_vector(15 downto 0);
+            numero_instruccion : out std_logic_vector(7 downto 0)
+        );
 end component;
 
 signal clk_tb : std_logic := '0';
+signal clk_p_tb : std_logic := '0';
 signal rst_tb : std_logic := '0';
 signal ctrl_tb : std_logic_vector(10 downto 0);
 signal data_tb : std_logic_vector(4 downto 0);
@@ -44,6 +46,7 @@ port map (
 ruta_datos: data_path
 port map (
     clk => clk_tb,
+    clk_p => clk_tb,
     rst => rst_tb,
     ctrl => ctrl_tb,
     data => data_tb,
